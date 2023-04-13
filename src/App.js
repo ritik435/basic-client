@@ -1,23 +1,25 @@
+import React, {useState,useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
 function App() {
+  const [profile, setProfile] = useState("");
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    fetch("https://basic-server-five.vercel.app/",{ mode: 'cors' })
+      .then((res) =>res.json() )
+      .then((data) => setMessage(data.message) );
+  
+    fetch("https://basic-server-five.vercel.app/users",{ mode: 'cors' })
+      .then((res) =>res.json() )
+      .then((data) => setProfile(data.message) );
+  },
+   []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello From React......{message}</h1>
+      <h1>Hello From React......{profile}</h1>
     </div>
   );
 }
